@@ -18,7 +18,7 @@ public class HandlerUtils {
     private HandlerThread thread;
     private static Handler handler;
 
-    public HandlerUtils(String tName, int priority, HandlerListner listner){
+    public HandlerUtils(String tName, final int priority, HandlerListner listner){
         handlerListner = listner;
         thread = new HandlerThread(tName);
         thread.start();

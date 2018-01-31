@@ -14,22 +14,23 @@ public class MainActivity extends BaseActivity {
 
 
     @Override
+    protected void addFragments(List<Fragment> fragments) {
+        fragments.add(new MainFragment());
+    }
+
+    @Override
     public void onCreate(FragmentUtils fragmentUtils) {
 
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_main;
     }
 
-    @Override
-    public List<Fragment> getFragments() {
-        return null;
-    }
 
     @Override
     public int getFragmentContainerId() {
-        return 0;
+        return R.id.fl_container;
     }
 }

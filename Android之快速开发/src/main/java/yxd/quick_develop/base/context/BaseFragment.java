@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import yxd.project1.context.MyApplication;
+import butterknife.ButterKnife;
 
 
 /**
@@ -23,29 +22,16 @@ import yxd.project1.context.MyApplication;
  */
 public abstract class BaseFragment extends FragmentSubject {
 
-    private static final String NULL = "NULL";
     protected static BaseActivity activity;
     private View view;
-    private SparseArray<Integer> intArr = new SparseArray<>();
 
-    private View convertView;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        if (convertView != null) {
-//            ViewGroup parent = (ViewGroup) convertView.getParent();
-//            if (parent != null) {
-//                parent.removeView(container);
-//            }
-//            return container;
-//        }
-//        convertView = inflater.inflate(getLayoutId(), container, false);
-//        this.view = convertView;
-//        onCreateView(view);
-//        return view;
-        Log.d("Test", "oncreatview");
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(getLayoutId(), container, false);
+        ButterKnife.bind(this, view);
         onCreateView(view);
         return view;
     }
@@ -83,7 +69,5 @@ public abstract class BaseFragment extends FragmentSubject {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher watcher = MyApplication.getRefWatcher(getActivity());
-        watcher.watch(this);
     }
 }

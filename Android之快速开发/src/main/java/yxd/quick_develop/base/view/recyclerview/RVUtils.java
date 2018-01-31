@@ -11,7 +11,7 @@ import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
 import java.util.List;
 
-import yxd.project1.base.view.recyclerview.divider.DividerItemDecoration;
+import yxd.quick_develop.base.view.recyclerview.divider.DividerItemDecoration;
 
 
 /**
@@ -79,7 +79,7 @@ public class RVUtils {
         return this;
     }
 
-    public <T> void adapter(List<T> list, onBindData data, SetMultiCellView cellView, int...itemLayoutId){
+    public <T> void adapter(List<T> list, final onBindData data, final SetMultiCellView cellView, int...itemLayoutId){
         adapter = new EasyRVAdapter<T>(context, list, itemLayoutId) {
             @Override
             protected void onBindData(EasyRVHolder viewHolder, int position, T item) {

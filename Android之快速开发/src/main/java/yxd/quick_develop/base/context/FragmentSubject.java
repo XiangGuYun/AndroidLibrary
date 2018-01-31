@@ -1,9 +1,6 @@
 package yxd.quick_develop.base.context;
 
-import android.os.Message;
 import android.support.v4.app.Fragment;
-
-import yxd.project1.base.common.MsgUtils;
 
 
 /**
@@ -17,23 +14,6 @@ public class FragmentSubject extends Fragment {
     protected void update(){
 
     }
-
-    public MsgUtils msg(){
-        return new MsgUtils();
-    }
-
-    public <T> Message msg(T t){
-        return new MsgUtils().obj(t).end();
-    }
-
-    public Message msgWhat(int what){
-        return new MsgUtils().what(what).end();
-    }
-
-    public <T> Message msg(int what, T t){
-        return new MsgUtils().what(what).obj(t).end();
-    }
-
 
 
 }

@@ -43,10 +43,12 @@ public abstract class BaseActivity extends ActivitySubject {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutId());
-        fragments.addAll(getFragments());
+        addFragments(fragments);
         fragmentUtils = new FragmentUtils(this, fragments, getFragmentContainerId());
         onCreate(fragmentUtils);
     }
+
+    protected abstract void addFragments(List<Fragment> fragments);
 
     public View click(View view, View.OnClickListener listener){
         view.setOnClickListener(listener);
@@ -60,8 +62,6 @@ public abstract class BaseActivity extends ActivitySubject {
     public abstract void onCreate(FragmentUtils fragmentUtils);
 
     public abstract int getLayoutId();
-
-    public abstract List<Fragment> getFragments();
 
     public abstract int getFragmentContainerId();
 
