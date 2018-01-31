@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editChannelView" style="@style/MM"
+    android:layout_gravity="end" android:background="@color/white"
+    android:paddingTop="10dp" android:orientation="vertical"
+    android:layout_marginLeft="-65dp" android:clickable="true"
+    android:focusable="true" tools:ignore="RtlHardcoded"><!--防止点击穿透-->
+    <include layout="@layout/fragment_news_right_a"/>
+    <include layout="@layout/fragment_news_right_b"/>
+</LinearLayout>

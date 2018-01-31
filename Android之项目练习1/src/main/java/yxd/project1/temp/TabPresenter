@@ -1,0 +1,50 @@
+//    public void removeAllList(){
+//        dataList.clear();
+//        dataList = null;
+//    }
+//    private void getNewsByVolley() {
+//        VolleyRequest.requestGet(
+//                context,
+//                StringUtils.appendURL(KEYWORD, pageToken+""), UUID.randomUUID().toString(), s -> {
+//                    news = gson.fromJson(s, News.class);
+//                    if(news.getData()!= null){
+//                        Log.d("Test", "不是空的");
+//                        dataList.addAll(news.getData());
+//                        hasNext = news.isHasNext();
+//                        tabHandler.sendEmptyMessage(ON_GET_DATA);
+//                    }
+//                },
+//                volleyError -> Log.d("Test", "请求失败"));
+//    }
+
+//        VolleyRequest.requestGet(
+//                context,
+//                StringUtils.appendURL(KEYWORD, ""+pageToken),
+//                "tag",
+//                s -> {
+//                    news = gson.fromJson(s, News.class);
+//                    dataList.addAll(news.getData());
+//                    hasNext = news.isHasNext();
+//                    rvUtils.getAdapter().notifyDataSetChanged();
+//                    tabLisener.getShSwipeRefreshLayout().finishLoadmore();
+//                    Toast.makeText(context, "当前的页码是" + pageToken, Toast.LENGTH_SHORT).show();
+//                }, volleyError -> {
+//                    Log.d("Test", "请求失败");
+//                    tabLisener.getShSwipeRefreshLayout().finishLoadmore();
+//                });
+
+//        VolleyRequest.requestGet(
+//                context,
+//                StringUtils.appendURL(KEYWORD, ""+pageToken),
+//                "tag", s -> {
+//                    news = gson.fromJson(s, News.class);
+//                    dataList.addAll(0, news.getData());
+//                    hasNext = news.isHasNext();
+//                    rvUtils.getAdapter().notifyDataSetChanged();
+//                    tabLisener.getShSwipeRefreshLayout().finishRefresh();
+//                    Toast.makeText(context, "当前的页码是" + pageToken, Toast.LENGTH_SHORT).show();
+//                }, volleyError -> {
+//                    Toast.makeText(context, "刷新失败"+volleyError.getMessage(), Toast.LENGTH_LONG).show();
+//                    tabLisener.getShSwipeRefreshLayout().finishRefresh();
+//                }
+//        );

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" style="@style/MW">
+    <TextView
+        style="@style/WW"
+        android:textSize="20sp" android:id="@+id/tv_unselect_channel"
+        android:padding="10dp" android:layout_centerVertical="true"
+        />
+    <ImageView
+        style="@style/WW" android:padding="10dp"
+        android:src="@mipmap/add1" android:id="@+id/iv_add_channel"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

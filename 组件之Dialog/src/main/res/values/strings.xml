@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">dialog</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="agree">同意</string>
+    <string name="disagree">拒绝</string>
+    <string name="longer_positive">longer_positive</string>
+    <string name="negative">negative</string>
+    <string name="more_info">更多信息</string>
+    <string name="example_title">example_title</string>
+    <string name="allow">allow</string>
+    <string name="deny">deny</string>
+    <string name="dont_ask_again">不再询问</string>
+    <string name="choose">choose</string>
+    <string name="socialNetworks">socialNetworks</string>
+    <string name="positive">positive</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--回退、频道定制-->
+    <include layout="@layout/fragment_news_right_a_part1"/>
+    <include layout="@layout/line1" />
+    <!--我的订阅、编辑-->
+    <include layout="@layout/fragment_news_right_a_part2"/>
+    <!--频道列表-->
+    <android.support.v7.widget.RecyclerView
+        style="@style/MW"
+        android:background="@color/channel_back"
+        android:id="@+id/rv_channel" />
+    <include layout="@layout/line1"/>
+    <!--添加频道列表-->
+    <android.support.v7.widget.RecyclerView
+        style="@style/MW"
+        android:id="@+id/rv_add_channel"/>
+
+</LinearLayout>

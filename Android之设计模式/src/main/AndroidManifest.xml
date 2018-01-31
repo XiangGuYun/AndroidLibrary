@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="yxd.design_mode">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".behavior.observer.ObserverActivity" />
+        <activity android:name=".creation.prototype.ProtoActivity" />
+        <activity android:name=".structure.flyweight.FlyweightActivity" />
+        <activity android:name=".structure.decorate.DecorateActivity" />
+        <activity android:name=".structure.proxy.ProxyActivity" />
+        <activity android:name=".structure.facade.FacadeActivity" />
+        <activity android:name=".behavior.strategy.StragetyActivity" />
+        <activity android:name=".behavior.mediator.MediatorActivity" />
+        <activity android:name=".behavior.state.StateActivity" />
+        <activity android:name=".creation.builder.BuilderActivity" />
+        <activity android:name=".creation.static_factory.FactoryActivity" />
+        <activity android:name=".creation.abstract_factory.FactoryActivity" />
+        <activity android:name=".behavior.chain_of_responsibility.LoggerActivity" />
+        <activity android:name=".architecture.mvc.MVCActivity" />
+        <activity android:name=".architecture.mvp.view.UserLoginActivity" />
+        <activity android:name=".exercises.zsq.ExActivity" />
+        <activity android:name=".architecture.mvptest.MVPActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".creation.singleton.SingletonActivity" />
+        <activity android:name=".ExerciseActivity"></activity>
+    </application>
+
+</manifest>

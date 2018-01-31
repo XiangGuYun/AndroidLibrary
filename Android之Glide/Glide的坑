@@ -1,0 +1,54 @@
+ Glide有哪些“坑”？
+
+ImageView的setTag问题
+问题描述：如果使用Glide的into(imageView)为ImageView设置图片的同时使用ImageView的setTag(final Object tag)方法，将会导致java.lang.IllegalArgumentException: You must not call setTag() on a view Glide is targeting异常。因为Glide的ViewTarget中通过view.setTag(tag)和view.getTag()标记请求的，由于Android 4.0之前Tag存储在静态map里，如果Glide使用setTag(int key, final Object tag)方法标记请求则可能会导致内存泄露，所以Glide默认使用view.setTag(tag)标记请求，你就不能重复调用了。
+解决办法：如果你需要为ImageView设置Tag，必须使用setTag(int key, final Object tag)及getTag(int key)方法，其中key必须是合法的资源ID以确保key的唯一性，典型做法就是在资源文件中声明type="id"的item资源。
+
+
+placeholder()导致的图片变形问题
+问题描述：使用.placeholder()方法在某些情况下会导致图片显示的时候出现图片变形的情况。这是因为Glide默认开启的crossFade动画导致的TransitionDrawable绘制异常，详细描述和讨论可以看一下这个#363 issue。根本原因就是你的placeholder图片和你要加载显示的图片宽高比不一样，而Android的TransitionDrawable无法很好地处理不同宽高比的过渡问题，这的确是个Bug，是Android的也是Glide的。
+解决办法：使用.dontAnimate()方法禁用过渡动画，或者使用animate()方法自己写动画，再或者自己修复TransitionDrawable的问题。
+ImageView的资源回收问题
+问题描述：默认情况下，Glide会根据with()使用的Activity或Fragment的生命周期自动调整资源请求以及资源回收。但是如果有很占内存的Fragment或Activity不销毁而仅仅是隐藏视图，那么这些图片资源就没办法及时回收，即使是GC的时候。
+解决办法：可以考虑使用WeakReference，如：
+
+    final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(imageView);
+    ImageView target = imageViewWeakReference.get();
+    if (target != null) {
+        Glide.with(context).load(uri).into(target);
+    }
+
+
+ImageView的scaleType问题
+scaleType默认为fitCenter模式，如果你想设置成centerInside，不好意思，3.x还没有这个方法，参见这个#591 issue，折中的解决办法就是放弃使用centerInside，或者结合android:scaleType="centerInside"和.dontTransform()使用以禁止Glide对资源进行转换。
+如果你想要ImageView的宽高根据图片资源的大小而定(即使用wrap_comtent)，那么你就必须明确告诉Glide我想加载原始资源：使用android:scaleType="center"，或者.dontTransform()，或者.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)。
+不推荐使用fitXY，因为这样Glide会加载全尺寸图像到内存中而造成不必要的内存占用。
+异步线程完成后加载图片的崩溃问题
+问题描述：通常情况下，异步线程会被约束在Activity生命周期内，所以异步线程完成后使用Glide加载图片是没有问题的。但如果你的异步线程在Activity销毁时没有取消掉，那么异步线程完成后就Glide就无法为一个已销毁的Activity加载图片资源，抛出的异常如下（在with()方法中就进行判断并抛出异常）：
+
+java.lang.IllegalArgumentException: You cannot start a load for a destroyed activity
+    at com.bumptech.glide.manager.RequestManagerRetriever.assertNotDestroyed(RequestManagerRetriever.java:134)
+    at com.bumptech.glide.manager.RequestManagerRetriever.get(RequestManagerRetriever.java:102)
+    at com.bumptech.glide.Glide.with(Glide.java:653)
+    at com.frank.glidedemo.TestActivity.onGetDataCompleted(TestActivity.java:23)
+    at com.frank.glidedemo.TestActivity.access$000(TestActivity.java:10)
+    at com.frank.glidedemo.TestActivity$BackgroundTask.onPostExecute(TestActivity.java:46)
+    at com.frank.glidedemo.TestActivity$BackgroundTask.onPostExecute(TestActivity.java:28)
+    at android.os.AsyncTask.finish(AsyncTask.java:632)
+    at android.os.AsyncTask.access$600(AsyncTask.java:177)
+    at android.os.AsyncTask$InternalHandler.handleMessage(AsyncTask.java:645)
+    at android.os.Handler.dispatchMessage(Handler.java:102)
+    at android.os.Looper.loop(Looper.java:157)
+    at android.app.ActivityThread.main(ActivityThread.java:5356)
+    at java.lang.reflect.Method.invokeNative(Native Method)
+    at java.lang.reflect.Method.invoke(Method.java:515)
+    at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1265)
+    at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1081)
+    at dalvik.system.NativeStart.main(Native Method)
+    }
+解决办法：正确管理Background Threads(异步线程)，当Activity停止或销毁时，停止所有相关的异步线程，停止所有后续的UI操作。或者加载前使用isFinishing()或isDestroyed()进行限制（不建议这种处理方式）。
+
+
+由于Bitmap复用导致的在某些设备上图片错乱的问题
+问题描述： Glide默认使用BitmapPool的方式对应用中用到的Bitmap进行复用，以减少频繁的内存申请和内存回收，而且默认使用的Bitmap模式为RGB565以减少内存开销。但在某些设备上（通常在Galaxy系列5.X设备上很容易复现）某些情况下会出现图片加载错乱的问题，具体详见这个#601 issue。原因初步确定是OpenGL纹理渲染异常。
+解决办法：GlideModule使用PREFER_ARGB_8888（Glide4.X已经默认使用该模式了），虽然内存占用比RGB565更多一点，但可以更好地处理有透明度Bitmap的复用问题。或者禁用Bitmap复用setBitmapPool(new BitmapPoolAdapter())来修复这个问题（不推荐这种处理方式）。

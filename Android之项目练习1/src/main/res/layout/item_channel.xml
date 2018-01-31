@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yxd.project1.view.DeleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/tv_channel"
+    android:gravity="center"
+    android:textSize="20sp"
+    android:layout_margin="5dp"
+    android:background="#ffffff"
+    >
+
+</yxd.project1.view.DeleteTextView>

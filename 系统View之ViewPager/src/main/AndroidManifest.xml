@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="yxd.viewpager">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".case1_base.MainActivity" />
+        <activity android:name=".case2_banner.BannerActivity" />
+        <activity android:name=".case3_dynamic_add_remove.Case3Activity" />
+        <activity android:name=".case3_dynamic_add_remove.TabActivity"></activity>
+        <activity android:name=".case4_infinite.Case4Activity">
+
+        </activity>
+        <activity android:name=".case5_auto_infinite.Case5Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
