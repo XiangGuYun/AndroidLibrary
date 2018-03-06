@@ -13,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".case1_compress_bitmp.MainActivity">
+        <activity android:name=".case1_compress_bitmp.MainActivity"></activity>
+        <activity android:name=".case2_bmp_memory_reuse.InBitmapActivity">
 
         </activity>
-        <activity android:name=".case2_bmp_memory_reuse.InBitmapActivity">
+        <activity android:name=".case3_bitmap_bytes.Case3Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
